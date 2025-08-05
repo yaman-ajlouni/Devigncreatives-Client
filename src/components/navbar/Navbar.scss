@@ -1,0 +1,93 @@
+@import '../../assets/styles/variables';
+
+.navbar {
+    background: $white;
+    height: $navbar-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    box-shadow: $box-shadow;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    @media (max-width: $breakpoint-md) {
+        padding: 0 1rem;
+        height: 70px;
+    }
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0.5rem;
+    border-radius: $border-radius;
+    transition: $transition;
+
+    &:hover {
+        background-color: $light-gray;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+        display: none;
+    }
+}
+
+.hamburger-line {
+    width: 20px;
+    height: 2px;
+    background-color: $deep-blue;
+    transition: $transition;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+
+    .brand-name {
+        font-family: $font-secondary;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $deep-blue;
+        margin: 0;
+        line-height: 1.2;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 1.2rem;
+        }
+    }
+
+    .brand-subtitle {
+        font-size: 0.75rem;
+        color: $orange;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: $breakpoint-md) {
+        gap: 1rem;
+    }
+}
+

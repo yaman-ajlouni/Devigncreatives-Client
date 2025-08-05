@@ -1,0 +1,465 @@
+@import '../../assets/styles/variables';
+
+.notifications-content {
+
+    // Notifications Header
+    .notifications-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: $white;
+        padding: 1.5rem 2rem;
+        border-radius: $border-radius * 3;
+        box-shadow: $box-shadow;
+        margin-bottom: 2rem;
+
+        @media (max-width: $breakpoint-md) {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+
+        .notifications-stats {
+            display: flex;
+            gap: 2rem;
+
+            @media (max-width: $breakpoint-sm) {
+                gap: 1rem;
+            }
+
+            .stat-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: $deep-blue;
+                font-weight: 500;
+
+                svg {
+                    color: $vibrant-green;
+                }
+
+                &.unread {
+                    color: $orange;
+
+                    svg {
+                        color: $orange;
+                    }
+                }
+
+                span {
+                    font-size: 0.95rem;
+                }
+            }
+        }
+
+        .notifications-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: $border-radius * 2;
+                font-weight: 500;
+                cursor: pointer;
+                transition: $transition;
+                text-decoration: none;
+                font-size: 0.9rem;
+
+                &.btn-secondary {
+                    background: $light-gray;
+                    color: $dark-gray;
+                    border: 2px solid $light-gray;
+
+                    &:hover {
+                        background: $white;
+                        border-color: $deep-blue;
+                        color: $deep-blue;
+                    }
+                }
+            }
+
+            .filter-toggle {
+                padding: 0.5rem;
+                color: $deep-blue;
+                cursor: pointer;
+                border-radius: $border-radius;
+                transition: $transition;
+
+                &:hover {
+                    background: $light-gray;
+                }
+            }
+        }
+    }
+
+    // Filter Tabs
+    .filter-tabs {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+
+        @media (max-width: $breakpoint-md) {
+            gap: 0.5rem;
+        }
+
+        .filter-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid $light-gray;
+            background: $white;
+            border-radius: $border-radius * 2;
+            cursor: pointer;
+            transition: $transition;
+            font-weight: 500;
+            color: $dark-gray;
+
+            &:hover {
+                border-color: $deep-blue;
+                color: $deep-blue;
+            }
+
+            &.active {
+                border-color: $deep-blue;
+                background: $deep-blue;
+                color: $white;
+
+                .filter-count {
+                    background: rgba($white, 0.2);
+                    color: $white;
+                }
+            }
+
+            .filter-count {
+                background: $light-gray;
+                color: $dark-gray;
+                padding: 0.15rem 0.5rem;
+                border-radius: 12px;
+                font-size: 0.8rem;
+                font-weight: 600;
+            }
+
+            @media (max-width: $breakpoint-sm) {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    // Notifications List
+    .notifications-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .notification-item {
+            background: $white;
+            border-radius: $border-radius * 3;
+            box-shadow: $box-shadow;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            transition: $transition;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            }
+
+            &.unread {
+                background: linear-gradient(135deg, rgba($deep-blue, 0.02), rgba($vibrant-green, 0.01));
+                border-left-color: $orange;
+
+                .notification-title {
+                    font-weight: 700;
+                }
+            }
+
+            &.read {
+                opacity: 0.8;
+                border-left-color: $light-gray;
+            }
+
+            // Color coding based on notification type
+            &.success {
+                .notification-icon {
+                    background: rgba($vibrant-green, 0.1);
+                    color: $vibrant-green;
+                }
+            }
+
+            &.primary {
+                .notification-icon {
+                    background: rgba($deep-blue, 0.1);
+                    color: $deep-blue;
+                }
+            }
+
+            &.info {
+                .notification-icon {
+                    background: rgba($deep-blue, 0.1);
+                    color: $deep-blue;
+                }
+            }
+
+            &.warning {
+                .notification-icon {
+                    background: rgba($orange, 0.1);
+                    color: $orange;
+                }
+            }
+
+            @media (max-width: $breakpoint-md) {
+                padding: 1.25rem;
+                gap: 0.75rem;
+            }
+
+            .notification-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                background: rgba($deep-blue, 0.1);
+                color: $deep-blue;
+
+                @media (max-width: $breakpoint-sm) {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            .notification-content {
+                flex: 1;
+                min-width: 0;
+
+                .notification-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: 0.5rem;
+                    gap: 1rem;
+
+                    .notification-title {
+                        color: $deep-blue;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        margin: 0;
+                        line-height: 1.3;
+                        flex: 1;
+
+                        @media (max-width: $breakpoint-sm) {
+                            font-size: 1rem;
+                        }
+                    }
+
+                    .notification-meta {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        flex-shrink: 0;
+
+                        .notification-time {
+                            color: $dark-gray;
+                            font-size: 0.85rem;
+                            opacity: 0.7;
+                            white-space: nowrap;
+                        }
+
+                        .unread-dot {
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background: $orange;
+                            animation: pulse-dot 2s infinite;
+                        }
+                    }
+                }
+
+                .notification-message {
+                    color: $dark-gray;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                    opacity: 0.9;
+
+                    @media (max-width: $breakpoint-sm) {
+                        font-size: 0.9rem;
+                    }
+                }
+
+                .notification-footer {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 1rem;
+
+                    @media (max-width: $breakpoint-sm) {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 0.5rem;
+                    }
+
+                    .notification-date {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        color: $dark-gray;
+                        font-size: 0.8rem;
+                        opacity: 0.7;
+
+                        svg {
+                            color: $orange;
+                        }
+                    }
+
+                    .notification-type {
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 12px;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        text-transform: capitalize;
+                        background: rgba($deep-blue, 0.1);
+                        color: $deep-blue;
+
+                        &.milestone {
+                            background: rgba($vibrant-green, 0.1);
+                            color: $vibrant-green;
+                        }
+
+                        &.image {
+                            background: rgba($deep-blue, 0.1);
+                            color: $deep-blue;
+                        }
+
+                        &.message {
+                            background: rgba($orange, 0.1);
+                            color: $orange;
+                        }
+
+                        &.project {
+                            background: rgba($deep-blue, 0.1);
+                            color: $deep-blue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Empty State
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: $white;
+        border-radius: $border-radius * 3;
+        box-shadow: $box-shadow;
+
+        svg {
+            color: $deep-blue;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            color: $deep-blue;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: $dark-gray;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: $breakpoint-md) {
+            padding: 3rem 1.5rem;
+
+            svg {
+                width: 48px;
+                height: 48px;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+        }
+    }
+}
+
+// Animations
+@keyframes pulse-dot {
+    0% {
+        box-shadow: 0 0 0 0 rgba($orange, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba($orange, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba($orange, 0);
+    }
+}
+
+// Responsive Adjustments
+@media (max-width: $breakpoint-md) {
+    .notifications-content {
+        .notifications-header {
+            .notifications-stats {
+                justify-content: center;
+            }
+        }
+
+        .filter-tabs {
+            justify-content: center;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .notifications-content {
+        .filter-tabs {
+            .filter-tab {
+                flex: 1;
+                min-width: 0;
+                justify-content: center;
+
+                &:nth-child(n+4) {
+                    display: none;
+                }
+            }
+        }
+
+        .notifications-list {
+            .notification-item {
+                .notification-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.5rem;
+
+                    .notification-meta {
+                        align-self: flex-end;
+                    }
+                }
+            }
+        }
+    }
+}
