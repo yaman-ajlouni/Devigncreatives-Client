@@ -1,3 +1,5 @@
+import React from 'react';
+import logo from '../../assets/images/devigncreatives-logo.png'
 import './Navbar.scss';
 
 function Navbar({ toggleSidebar }) {
@@ -9,16 +11,15 @@ function Navbar({ toggleSidebar }) {
                     <span className="hamburger-line"></span>
                     <span className="hamburger-line"></span>
                 </button>
-                <div className="brand">
-                    <h1 className="brand-name">Devign Creatives</h1>
-                    <span className="brand-subtitle">Client Dashboard</span>
+
+                <div className="logo-container">
+                    <img src={logo} alt="Devign Creatives" className="logo" />
                 </div>
             </div>
 
             <div className="navbar-right">
                 <div className="project-info">
-                    <span className="project-name">Website Redesign Project</span>
-                    <span className="project-status">In Progress</span>
+                    <span className="project-name">ShamSuperStore</span>
                 </div>
 
                 <div className="user-profile">

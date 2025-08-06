@@ -21,6 +21,7 @@
     @media (max-width: $breakpoint-md) {
         top: 70px;
         height: calc(100vh - 70px);
+        width: 280px; // Ensure consistent width on mobile
     }
 
     &.sidebar-open {
@@ -34,7 +35,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba($black, 0.5);
+    background: rgba($black, 0.6);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -44,9 +45,22 @@
         display: none;
     }
 
+    &.sidebar-open,
     .sidebar-open & {
         opacity: 1;
         visibility: visible;
+    }
+}
+
+// Apply blur effect to the main content when sidebar is open
+@media (max-width: $breakpoint-md) {
+
+    .sidebar-open .main-content,
+    .sidebar-open main,
+    .sidebar-open .content,
+    .sidebar-open .app-content {
+        filter: blur(3px);
+        transition: filter 0.3s ease;
     }
 }
 
@@ -54,24 +68,15 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
 }
 
 .sidebar-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 0 1.5rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid $light-gray;
-    padding-bottom: 1rem;
-
-    .sidebar-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: $deep-blue;
-        margin: 0;
-    }
+    margin-bottom: 1rem;
 
     .sidebar-close {
         background: none;
@@ -281,4 +286,11 @@
 
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: darken($deep-blue, 10%);
+}
+
+// Additional styles for better mobile experience
+@media (max-width: $breakpoint-md) {
+    body.sidebar-open {
+        overflow: hidden;
+    }
 }

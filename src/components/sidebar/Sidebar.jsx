@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BarChart3, MessageCircle, Image, Bell, Zap, LogOut, X } from 'lucide-react';
 import './Sidebar.scss';
 
 function Sidebar({ isOpen, toggleSidebar }) {
+    // Add/remove body class for mobile sidebar blur effect
+    useEffect(() => {
+        if (window.innerWidth <= 768) {
+            if (isOpen) {
+                document.body.classList.add('sidebar-open');
+            } else {
+                document.body.classList.remove('sidebar-open');
+            }
+        }
+        
+        return () => {
+            document.body.classList.remove('sidebar-open');
+        };
+    }, [isOpen]);
     const menuItems = [
         {
             path: '/project-detail',
@@ -44,10 +58,9 @@ function Sidebar({ isOpen, toggleSidebar }) {
     return (
         <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
             <div className="sidebar-overlay" onClick={toggleSidebar}></div>
-
+            
             <div className="sidebar-content">
                 <div className="sidebar-header">
-                    <h2 className="sidebar-title">Dashboard</h2>
                     <button className="sidebar-close" onClick={toggleSidebar}>
                         <X size={20} />
                     </button>
