@@ -11,6 +11,8 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    overflow: hidden; // Prevent overflow
 
     @media (max-width: $breakpoint-md) {
         padding: 0 1rem;
@@ -22,6 +24,8 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-shrink: 0; // Prevent shrinking
+    min-width: 0; // Allow text truncation if needed
 
     @media (max-width: $breakpoint-sm) {
         gap: 0.5rem;
@@ -38,6 +42,7 @@
     padding: 0.5rem;
     border-radius: $border-radius;
     transition: $transition;
+    flex-shrink: 0;
 
     &:hover {
         background-color: $light-gray;
@@ -58,6 +63,7 @@
 .logo-container {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 
     .logo-placeholder {
         width: 40px;
@@ -80,11 +86,19 @@
     }
 
     .logo {
-        width: 180px;
-        object-fit: cover;
+        height: 40px; // Use height instead of width for better control
+        width: auto; // Let width adjust automatically
+        max-width: 160px; // Set a max-width to prevent overflow
+        object-fit: contain; // Better than cover for logos
+
+        @media (max-width: $breakpoint-md) {
+            max-width: 120px;
+            height: 35px;
+        }
 
         @media (max-width: $breakpoint-sm) {
-            width: 100px;
+            max-width: 100px;
+            height: 30px;
         }
     }
 }
@@ -93,6 +107,8 @@
     display: flex;
     align-items: center;
     gap: 2rem;
+    flex-shrink: 0; // Prevent shrinking
+    min-width: 0; // Allow content to truncate if needed
 
     @media (max-width: $breakpoint-md) {
         gap: 1rem;
@@ -113,6 +129,9 @@
         font-weight: 600;
         color: $deep-blue;
         margin-bottom: 0.2rem;
+        white-space: nowrap; // Prevent text wrapping
+        overflow: hidden; // Hide overflow
+        text-overflow: ellipsis; // Add ellipsis for long text
 
         @media (max-width: $breakpoint-md) {
             font-size: 1rem;
@@ -128,6 +147,7 @@
     padding: 0.5rem;
     border-radius: $border-radius;
     transition: $transition;
+    flex-shrink: 0;
 
     &:hover {
         background-color: $light-gray;
@@ -145,6 +165,7 @@
     color: $white;
     font-weight: 600;
     font-size: 0.9rem;
+    flex-shrink: 0;
 
     @media (max-width: $breakpoint-sm) {
         width: 35px;
@@ -166,11 +187,13 @@
         color: $deep-blue;
         font-size: 0.9rem;
         line-height: 1.2;
+        white-space: nowrap;
     }
 
     .user-role {
         font-size: 0.8rem;
         color: $orange;
         font-weight: 500;
+        white-space: nowrap;
     }
 }
