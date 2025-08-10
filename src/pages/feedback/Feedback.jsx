@@ -1,153 +1,204 @@
 import React, { useState } from 'react';
-import { MessageCircle, Send } from 'lucide-react';
+import { Send, MessageSquare, Clock, CheckCircle } from 'lucide-react';
 import './Feedback.scss';
 
-function Feedback() {
-    const [chatMessage, setChatMessage] = useState('');
+const Feedback = () => {
+    const [formData, setFormData] = useState({
+        title: '',
+        content: ''
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const adminChat = [
+    // Mock feedback history - replace with actual data from your API
+    const [feedbackHistory] = useState([
         {
             id: 1,
-            sender: 'admin',
-            senderName: 'Sarah Johnson',
-            role: 'Project Manager',
-            message: 'Hi John! I\'ve reviewed your latest feedback on the homepage design. We\'ll implement those changes by tomorrow.',
-            timestamp: '2 hours ago',
-            avatar: 'SJ'
+            title: "Website Loading Issue",
+            content: "The dashboard takes too long to load, especially during peak hours.",
+            status: "pending",
+            submittedAt: "2024-01-15T10:30:00Z",
+            response: null
         },
         {
             id: 2,
-            sender: 'client',
-            senderName: 'You',
-            role: 'Client',
-            message: 'Great! Also, could we discuss the mobile navigation? I think it needs some adjustments.',
-            timestamp: '3 hours ago',
-            avatar: 'JD'
+            title: "Feature Request",
+            content: "Could you add a dark mode option to the interface?",
+            status: "resolved",
+            submittedAt: "2024-01-10T14:22:00Z",
+            response: "Thank you for the suggestion! Dark mode has been added to our roadmap."
         },
         {
             id: 3,
-            sender: 'admin',
-            senderName: 'Sarah Johnson',
-            role: 'Project Manager',
-            message: 'Absolutely! I\'ll have our mobile designer take a look at it. What specific aspects would you like us to focus on?',
-            timestamp: '1 day ago',
-            avatar: 'SJ'
-        },
-        {
-            id: 4,
-            sender: 'client',
-            senderName: 'You',
-            role: 'Client',
-            message: 'The buttons feel too small and the spacing between menu items could be improved.',
-            timestamp: '1 day ago',
-            avatar: 'JD'
-        },
-        {
-            id: 5,
-            sender: 'admin',
-            senderName: 'Sarah Johnson',
-            role: 'Project Manager',
-            message: 'Perfect! I\'ll pass this feedback to our design team. We should have the updated mobile navigation ready for review by Friday.',
-            timestamp: '1 day ago',
-            avatar: 'SJ'
-        },
-        {
-            id: 6,
-            sender: 'client',
-            senderName: 'You',
-            role: 'Client',
-            message: 'That sounds perfect. Also, I wanted to ask about the color scheme - can we make the primary blue slightly darker?',
-            timestamp: '2 days ago',
-            avatar: 'JD'
-        },
-        {
-            id: 7,
-            sender: 'admin',
-            senderName: 'Sarah Johnson',
-            role: 'Project Manager',
-            message: 'Of course! I\'ll create a few variations of the blue color for you to choose from. I should have those ready by this afternoon.',
-            timestamp: '2 days ago',
-            avatar: 'SJ'
-        },
-        {
-            id: 8,
-            sender: 'admin',
-            senderName: 'Sarah Johnson',
-            role: 'Project Manager',
-            message: 'Welcome to your project! I\'m Sarah, your dedicated project manager. I\'ll be here to assist you throughout the entire process. Feel free to reach out anytime!',
-            timestamp: '1 week ago',
-            avatar: 'SJ'
+            title: "UI Bug Report",
+            content: "The navigation menu doesn't work properly on mobile devices.",
+            status: "resolved",
+            submittedAt: "2024-01-08T09:15:00Z",
+            response: "Fixed in the latest update. Please refresh your browser."
         }
-    ];
+    ]);
 
-    const handleChatSubmit = (e) => {
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (chatMessage.trim()) {
-            // Handle chat message submission
-            console.log('Chat message sent:', chatMessage);
-            setChatMessage('');
+        if (!formData.title.trim() || !formData.content.trim()) return;
+
+        setIsSubmitting(true);
+
+        try {
+            // Replace with your actual API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Reset form after successful submission
+            setFormData({ title: '', content: '' });
+
+            // You might want to show a success message or update the feedback history
+            console.log('Feedback submitted:', formData);
+        } catch (error) {
+            console.error('Error submitting feedback:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const getStatusColor = (status) => {
+        switch (status) {
+            case 'resolved':
+                return 'resolved';
+            case 'pending':
+                return 'pending';
+            default:
+                return 'pending';
         }
     };
 
     return (
-        <div className="page-container">
-            <div className="page-header">
-                <h1>Feedback</h1>
-                <p>Share your thoughts and review project deliverables</p>
+        <div className="feedback-content">
+            {/* Feedback Form Section */}
+            <div className="section-card feedback-form-section">
+                <div className="section-header">
+                    <div className="section-title">
+                        <MessageSquare size={24} />
+                        <h2>Send Feedback</h2>
+                    </div>
+                </div>
+
+                <form className="feedback-form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="title" className="form-label">
+                            Feedback Title
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleInputChange}
+                            placeholder="Brief description of your feedback..."
+                            className="form-input"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="content" className="form-label">
+                            Details
+                        </label>
+                        <textarea
+                            id="content"
+                            name="content"
+                            value={formData.content}
+                            onChange={handleInputChange}
+                            placeholder="Please provide detailed information about your feedback, suggestions, or issues..."
+                            className="form-textarea"
+                            rows="5"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="submit-btn"
+                        disabled={isSubmitting || !formData.title.trim() || !formData.content.trim()}
+                    >
+                        <Send size={18} />
+                        {isSubmitting ? 'Sending...' : 'Send Feedback'}
+                    </button>
+                </form>
             </div>
 
-            <div className="feedback-content">
-                {/* Admin Chat Section */}
-                <div className="section-card admin-chat-section">
-                    <div className="section-header">
-                        <div className="section-title">
-                            <MessageCircle size={24} />
-                            <h2>Chat with Project Manager</h2>
-                        </div>
-                        <div className="admin-status">
-                            <div className="status-indicator online"></div>
-                            <span>Sarah Online</span>
-                        </div>
+            {/* Feedback History Section */}
+            <div className="section-card feedback-history-section">
+                <div className="section-header">
+                    <div className="section-title">
+                        <Clock size={24} />
+                        <h2>Feedback History</h2>
                     </div>
+                    <div className="history-count">
+                        {feedbackHistory.length} feedback{feedbackHistory.length !== 1 ? 's' : ''}
+                    </div>
+                </div>
 
-                    <div className="chat-container">
-                        <div className="chat-messages">
-                            {adminChat.map((message) => (
-                                <div key={message.id} className={`chat-message ${message.sender}`}>
-                                    <div className="message-avatar">
-                                        <span>{message.avatar}</span>
-                                    </div>
-                                    <div className="message-content">
-                                        <div className="message-header">
-                                            <span className="message-sender">{message.senderName}</span>
-                                            <span className="message-role">{message.role}</span>
-                                            <span className="message-time">{message.timestamp}</span>
+                <div className="feedback-list">
+                    {feedbackHistory.length === 0 ? (
+                        <div className="empty-state">
+                            <MessageSquare size={48} />
+                            <p>No feedback submitted yet.</p>
+                            <span>Your feedback history will appear here.</span>
+                        </div>
+                    ) : (
+                        feedbackHistory.map((feedback) => (
+                            <div key={feedback.id} className="feedback-item">
+                                <div className="feedback-header">
+                                    <div className="feedback-info">
+                                        <h3 className="feedback-title">{feedback.title}</h3>
+                                        <div className="feedback-meta">
+                                            <span className={`feedback-status ${getStatusColor(feedback.status)}`}>
+                                                {feedback.status === 'resolved' && <CheckCircle size={14} />}
+                                                {feedback.status}
+                                            </span>
+                                            <span className="feedback-date">
+                                                {formatDate(feedback.submittedAt)}
+                                            </span>
                                         </div>
-                                        <p className="message-text">{message.message}</p>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
 
-                        <form onSubmit={handleChatSubmit} className="chat-input-form">
-                            <div className="chat-input-container">
-                                <input
-                                    type="text"
-                                    value={chatMessage}
-                                    onChange={(e) => setChatMessage(e.target.value)}
-                                    placeholder="Type your message to Sarah..."
-                                    className="chat-input"
-                                />
-                                <button type="submit" className="chat-send-btn" disabled={!chatMessage.trim()}>
-                                    <Send size={18} />
-                                </button>
+                                <div className="feedback-content-text">
+                                    <p>{feedback.content}</p>
+                                </div>
+
+                                {feedback.response && (
+                                    <div className="admin-response">
+                                        <div className="response-header">
+                                            <strong>Admin Response:</strong>
+                                        </div>
+                                        <p>{feedback.response}</p>
+                                    </div>
+                                )}
                             </div>
-                        </form>
-                    </div>
+                        ))
+                    )}
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default Feedback;

@@ -8,6 +8,7 @@ import ImagesLibrary from './pages/imagesLibrary/ImagesLibrary';
 import Notifications from './pages/notifications/Notifications';
 import ExtraWork from './pages/extraWork/ExtraWork';
 import './App.scss';
+import Chats from './pages/chats/Chats';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,8 +26,8 @@ function App() {
           <main className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
             <Routes>
               <Route path="/" element={<ProjectDetail />} />
-              <Route path="/project-detail" element={<ProjectDetail />} />
               <Route path="/feedback" element={<Feedback />} />
+              <Route path="/chats" element={<Chats />} />
               <Route path="/images-library" element={<ImagesLibrary />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/extra-work" element={<ExtraWork />} />

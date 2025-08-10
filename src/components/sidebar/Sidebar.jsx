@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { BarChart3, MessageCircle, Image, Bell, Zap, LogOut, X } from 'lucide-react';
+import { BarChart3, MessageCircle, Image, Bell, Zap, LogOut, X, MessageSquare } from 'lucide-react';
 import './Sidebar.scss';
 
 function Sidebar({ isOpen, toggleSidebar }) {
     const menuItems = [
         {
-            path: '/project-detail',
+            path: '/',
             name: 'Project Detail',
             icon: BarChart3
         },
         {
             path: '/feedback',
             name: 'Feedback',
+            icon: MessageSquare
+        },
+        {
+            path: '/chats',
+            name: 'Chats',
             icon: MessageCircle
         },
         {

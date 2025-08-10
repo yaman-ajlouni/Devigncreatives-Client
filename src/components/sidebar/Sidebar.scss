@@ -5,7 +5,7 @@
     top: $navbar-height;
     left: 0;
     width: $sidebar-width;
-    height: calc(100vh - #{$navbar-height});
+    height: calc(100dvh - #{$navbar-height});
     background: $white;
     box-shadow: $box-shadow;
     transform: translateX(-100%);
@@ -20,7 +20,7 @@
 
     @media (max-width: $breakpoint-md) {
         top: 70px;
-        height: calc(100vh - 70px);
+        height: calc(100dvh - 70px);
     }
 
     &.sidebar-open {
@@ -33,7 +33,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background: rgba($black, 0.5);
     opacity: 0;
     visibility: hidden;
@@ -272,12 +272,4 @@
 
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: darken($deep-blue, 10%);
-}
-
-// Optional: Add some visual feedback when sidebar is open on mobile
-@media (max-width: $breakpoint-md) {
-    body.sidebar-open {
-        // No need for overflow: hidden or blur effects anymore
-        // The JavaScript handles scroll prevention more reliably
-    }
 }
